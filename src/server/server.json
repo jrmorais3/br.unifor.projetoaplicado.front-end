@@ -6,17 +6,17 @@
       "id": 1
     },
     {
-      "name": "Aperitivos edited",
+      "name": "Aperitivos",
       "status": true,
       "id": 2
     },
     {
-      "name": "Molhos edited",
+      "name": "Molhos",
       "status": true,
       "id": 3
     },
     {
-      "name": "Vinhos edited",
+      "name": "Vinhos",
       "status": true,
       "id": 4
     },
@@ -24,38 +24,38 @@
       "name": "Hamburgueres",
       "status": true,
       "id": 5
+    },
+    {
+      "name": "Sobremesas",
+      "status": true,
+      "id": 6
+    },
+    {
+      "name": "Comida Brasileira",
+      "status": true,
+      "id": 7
     }
   ],
   "products": [
     {
-      "name": "Monster Burguer",
-      "description": "O Famoso Hamburguer com Blend de Carne 170g",
-      "category_id": 5,
-      "price": 49.9,
-      "url_photo": "https://www.sabornamesa.com.br/media/k2/items/cache/b9ad772005653afce4d4bd46c2efe842_L.jpg",
-      "rate": 4,
+      "name": "Bolo de chocolate",
+      "description": "Delicioso",
+      "category_id": 6,
+      "price": "15,90",
+      "url_photo": "images/chocolate_cake.jpg",
+      "rate": 5,
       "status": 1,
       "id": 1
     },
     {
-      "name": "Salada Tropical",
-      "description": "Um acompanhamento leve e frescante para sua refeição",
-      "category_id": 1,
-      "price": 19.9,
-      "url_photo": "https://t2.rg.ltmcdn.com/pt/images/1/3/7/salada_tropical_natalina_9731_orig.jpg",
-      "rate": 3,
+      "name": "Monster Burguer",
+      "description": "O Famoso Hamburguer com Blend de Carne 170g",
+      "category_id": 5,
+      "price": "49,90",
+      "url_photo": "images/moster-burguer.jpg",
+      "rate": 5,
       "status": 1,
       "id": 2
-    },
-    {
-      "name": "Aperitivo de Camarão",
-      "description": "Aproveite a abundância de camarões com esse aperitivo simples com uvas",
-      "category_id": 2,
-      "price": 29.9,
-      "url_photo": "https://i.pinimg.com/originals/c8/32/c4/c832c49347a650d9e559a43704150961.jpg",
-      "rate": 5,
-      "status": 2,
-      "id": 3
     }
   ]
 }

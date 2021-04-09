@@ -65,6 +65,7 @@ export const ProductTable = styled.table`
   img.productImage {
     width: 80px;
     height: 80px;
+    object-fit: cover;
     border-radius: 5px;
   }
 

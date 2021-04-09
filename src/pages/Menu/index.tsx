@@ -9,6 +9,7 @@ import Header from '../../components/Header';
 import { ProductContent, ProductContentHeader, ProductTable } from './styles';
 import Tag from '../../components/Tag';
 import { api } from '../../services/api';
+import ModalProduct from '../../components/ModalProduct';
 
 const statusStyle = {
   '1': 'success',
@@ -31,10 +32,11 @@ interface Product {
   url_photo: string;
   rate: number;
   status: number;
+  images: File[];
 }
 
 const Menu: React.FC = () => {
-  const [showModalCategory, setModalCategory] = useState(false);
+  const [showModalProduct, setModalProduct] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -48,22 +50,64 @@ const Menu: React.FC = () => {
       });
   }, []);
 
-  const toggleModalCategory = useCallback(() => {
-    setModalCategory(!showModalCategory);
-  }, [showModalCategory]);
+  const toggleModalProduct = useCallback(() => {
+    setModalProduct(!showModalProduct);
+  }, [showModalProduct]);
+
+  const handleProduct = useCallback(
+    async (product: Omit<Product, 'id'>, images: File[]) => {
+      /**
+       * **** Somente em densenvolvimento *****************
+       */
+      const img = {};
+      images.forEach((image, index) => {
+        img[index] = image.name;
+      });
+
+      const data = {
+        ...product,
+        url_photo: img[0] ? `images/${img[0]}` : null,
+        rate: 5,
+        status: 1,
+      };
+
+      const productCreated = await api.post('/products', data);
+      setProducts(state => [...state, productCreated.data]);
+
+      // **************************************************
+
+      /**
+       * Quando integrar com o back:
+       */
+      // const data = {
+      //   ...product,
+      //   images,
+      //   rate: 5,
+      //   status: 2,
+      // };
+      // const productCreated = await api.post('/products', data);
+      // setProducts(state => [...state, productCreated.data]);
+    },
+    [],
+  );
 
   return (
     <Container>
       <Sidebar />
+      <ModalProduct
+        isOpen={showModalProduct}
+        setIsOpen={toggleModalProduct}
+        handleProduct={handleProduct}
+      />
       <Content>
         <Header>
-          <h1 className="pageTitle">Menu</h1>
+          <h1 className="pageTitle">Itens do Cardápio</h1>
         </Header>
         <Main>
           <ProductContent>
             <ProductContentHeader>
-              <button type="button" onClick={toggleModalCategory}>
-                Nova Item
+              <button type="button" onClick={toggleModalProduct}>
+                Novo Item
               </button>
               <input
                 type="text"
@@ -87,7 +131,11 @@ const Menu: React.FC = () => {
                     <td>
                       <img
                         className="productImage"
-                        src={product.url_photo}
+                        src={
+                          product.url_photo
+                            ? product.url_photo
+                            : 'images/default.jpeg'
+                        }
                         alt="ProductImage"
                       />
                     </td>

@@ -21,7 +21,7 @@ interface Page {
 const pages: Array<Page> = [
   { page: '/dashboard', label: 'Dashboard', icon: <FaChartLine /> },
   { page: '/categories', label: 'Categorias', icon: <IoTicketOutline /> },
-  { page: '/menu', label: 'Menu', icon: <BiFoodMenu /> },
+  { page: '/menu', label: 'Cardápio', icon: <BiFoodMenu /> },
   { page: '/tables', label: 'Mesas', icon: <GiTable /> },
   { page: '/feedbacks', label: 'Feedbacks', icon: <FaComments /> },
   { page: '/settings', label: 'Configurações', icon: <FiSettings /> },
