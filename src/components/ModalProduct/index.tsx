@@ -43,7 +43,7 @@ interface Product {
 
 interface Category {
   id: number;
-  name: string;
+  descricao: string;
 }
 
 interface IModalProps {
@@ -72,8 +72,9 @@ const ModalProduct: React.FC<IModalProps> = ({
         // const { data } = response.data;
 
         const options = response.data.map((opt: Category) => {
-          return { value: opt.id, label: opt.name };
+          return { value: opt.id, label: opt.descricao };
         });
+        console.log(options);
         setCategoryOptions(options);
       })
       .catch((error: Error) => {

@@ -17,7 +17,7 @@ import ModalCategory from '../../components/ModalCategory';
 
 interface Category {
   id: number;
-  name: string;
+  descricao: string;
   status: boolean;
 }
 
@@ -114,7 +114,7 @@ const Categories: React.FC = () => {
                 {categories.map(category => (
                   <tr key={category.id}>
                     <td>{category.id}</td>
-                    <td>{category.name}</td>
+                    <td>{category.descricao}</td>
                     <td>
                       <ToggleButton
                         categoryId={category.id}
