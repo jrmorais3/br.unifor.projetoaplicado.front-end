@@ -56,6 +56,16 @@
       "rate": 5,
       "status": 1,
       "id": 2
+    },
+    {
+      "name": "Vinho",
+      "description": "Vinho",
+      "category_id": 4,
+      "price": "99,99",
+      "url_photo": "images/vinho.jpg",
+      "rate": 5,
+      "status": 1,
+      "id": 3
     }
   ]
 }
