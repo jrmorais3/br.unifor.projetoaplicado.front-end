@@ -41,7 +41,7 @@ const Menu: React.FC = () => {
 
   useEffect(() => {
     api
-      .get<Product[]>(`/products`)
+      .get<Product[]>(`/product`)
       .then(response => {
         setProducts(response.data);
       })
@@ -59,19 +59,23 @@ const Menu: React.FC = () => {
       /**
        * **** Somente em densenvolvimento *****************
        */
-      const img = {};
-      images.forEach((image, index) => {
-        img[index] = image.name;
+      //  const img = {};
+      //  images.forEach((image, index) => {
+      //  img[index] = image.name;
+      //  });
+      console.log(images);
+      const data = new FormData();
+      data.append('name', product.name);
+      data.append('description', product.description);
+      data.append('category_id', String(product.category_id));
+      data.append('price', String(product.price));
+      data.append('rate', '5');
+      data.append('status', '1');
+      images.forEach(image => {
+        data.append('img', image);
       });
 
-      const data = {
-        ...product,
-        url_photo: img[0] ? `images/${img[0]}` : null,
-        rate: 5,
-        status: 1,
-      };
-
-      const productCreated = await api.post('/products', data);
+      const productCreated = await api.post('/product', data);
       setProducts(state => [...state, productCreated.data]);
 
       // **************************************************
