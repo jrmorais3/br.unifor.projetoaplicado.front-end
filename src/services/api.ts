@@ -3,11 +3,11 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 
 const apiAuth = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: 'http://localhost:5000',
 });
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: 'http://localhost:4000',
 });
 
 api.interceptors.request.use(

@@ -56,14 +56,6 @@ const Menu: React.FC = () => {
 
   const handleProduct = useCallback(
     async (product: Omit<Product, 'id'>, images: File[]) => {
-      /**
-       * **** Somente em densenvolvimento *****************
-       */
-      //  const img = {};
-      //  images.forEach((image, index) => {
-      //  img[index] = image.name;
-      //  });
-      console.log(images);
       const data = new FormData();
       data.append('name', product.name);
       data.append('description', product.description);
@@ -77,20 +69,6 @@ const Menu: React.FC = () => {
 
       const productCreated = await api.post('/product', data);
       setProducts(state => [...state, productCreated.data]);
-
-      // **************************************************
-
-      /**
-       * Quando integrar com o back:
-       */
-      // const data = {
-      //   ...product,
-      //   images,
-      //   rate: 5,
-      //   status: 2,
-      // };
-      // const productCreated = await api.post('/products', data);
-      // setProducts(state => [...state, productCreated.data]);
     },
     [],
   );
