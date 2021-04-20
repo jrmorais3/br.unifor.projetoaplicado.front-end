@@ -1,14 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useRef, useState } from 'react';
-import {
-  FaClipboardCheck,
-  FaInfoCircle,
-  FaTh,
-  FaTimesCircle,
-  FaUndo,
-} from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import Select from 'react-select';
+import { FaTrashAlt, FaEdit } from 'react-icons/fa';
+import { BiDotsVertical } from 'react-icons/bi';
 
 import { OutSideClick } from '../../hooks/outSideClick';
 
@@ -20,16 +13,10 @@ interface OcorrenciaProps {
 }
 
 interface DropActionProps {
-  openModal: () => void;
-  ocorrenciaProps: OcorrenciaProps;
   [key: string]: any;
 }
 
-const DropAction: React.FC<DropActionProps> = ({
-  situacao,
-  openModal,
-  ocorrenciaProps,
-}) => {
+const DropAction: React.FC<DropActionProps> = ({ product_id }) => {
   const btnActionDropRef = useRef<HTMLButtonElement>(null);
   const [positionContent, setPositionContent] = useState(0);
   const { visible, setVisible, ref } = OutSideClick(false);
@@ -49,43 +36,21 @@ const DropAction: React.FC<DropActionProps> = ({
         type="button"
         onClick={handleClickButton}
       >
-        <FaTh />
-        <span>Ações</span>
+        <BiDotsVertical size={30} />
       </button>
       {visible && (
         <DropActionContent position={positionContent}>
-          <Link
-            className="btnDropAction"
-            to={`/ocorrencias/${ocorrenciaProps.ocorrenciaId}/detalhes`}
-          >
-            <FaInfoCircle className="drop info" />
-            Detalhar
-          </Link>
-          {ocorrenciaProps.finalizada && (
-            <>
-              <span className="dropTitle">Finalizar Como:</span>
-              <button
-                className="btnDropAction"
-                type="button"
-                onClick={openModal}
-              >
-                <FaClipboardCheck className="drop" />
-                Retenção
-              </button>
-              <button className="btnDropAction" type="button">
-                <FaUndo className="drop rev" />
-                Reversão
-              </button>
-              <button className="btnDropAction" type="button">
-                <FaTimesCircle className="drop cancel" />
-                Cancelamento
-              </button>
-              <span className="dropTitle">Outros:</span>
-              <div className="otherOptions">
-                <Select options={situacao} menuPlacement="top" />
-              </div>
-            </>
-          )}
+          <>
+            <span className="dropTitle">Ações:</span>
+            <button className="btnDropAction" type="button">
+              <FaEdit className="drop" />
+              Editar
+            </button>
+            <button className="btnDropAction" type="button">
+              <FaTrashAlt className="drop delete" />
+              Excluir
+            </button>
+          </>
         </DropActionContent>
       )}
     </Container>

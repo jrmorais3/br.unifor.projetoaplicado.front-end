@@ -69,11 +69,10 @@ const ModalProduct: React.FC<IModalProps> = ({
     api
       .get<Category[]>(`/category`)
       .then(response => {
-        // const { data } = response.data;
-
         const options = response.data.map((opt: Category) => {
           return { value: opt.id, label: opt.descricao };
         });
+        if (!options) return;
         console.log(options);
         setCategoryOptions(options);
       })

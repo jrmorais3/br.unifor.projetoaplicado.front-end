@@ -13,7 +13,7 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fff;
+    background: transparent;
     border: 0;
     height: 40px;
 
@@ -101,14 +101,10 @@ export const DropActionContent = styled.div<DropActionContentProps>`
       width: 16;
       height: 16;
       margin-right: 10px;
-      color: #006100;
-    }
-
-    svg.drop.rev {
       color: #0d6efd;
     }
 
-    svg.drop.cancel {
+    svg.drop.delete {
       color: #9c0006;
     }
 

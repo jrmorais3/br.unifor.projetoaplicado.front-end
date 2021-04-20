@@ -103,6 +103,7 @@ export const ProductTable = styled.table`
   svg.grey {
     color: #a3a3a3;
   }
+
   button.productActions {
     background: transparent;
     border: 0;

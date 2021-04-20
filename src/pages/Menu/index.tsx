@@ -10,6 +10,7 @@ import { ProductContent, ProductContentHeader, ProductTable } from './styles';
 import Tag from '../../components/Tag';
 import { api } from '../../services/api';
 import ModalProduct from '../../components/ModalProduct';
+import DropAction from '../../components/DropAction';
 
 const statusStyle = {
   '1': 'success',
@@ -140,13 +141,7 @@ const Menu: React.FC = () => {
                       </Tag>
                     </td>
                     <td>
-                      <button
-                        className="productActions"
-                        type="button"
-                        title="Ações"
-                      >
-                        <BiDotsVertical size={30} />
-                      </button>
+                      <DropAction />
                     </td>
                   </tr>
                 ))}
