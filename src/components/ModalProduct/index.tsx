@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, {
   useRef,
   useCallback,
@@ -37,13 +36,13 @@ interface Product {
   price: string;
   url_photo: string;
   rate: number;
-  status: number;
+  available: boolean;
   images: File[];
 }
 
 interface Category {
   id: number;
-  descricao: string;
+  description: string;
 }
 
 interface IModalProps {
@@ -67,13 +66,16 @@ const ModalProduct: React.FC<IModalProps> = ({
 
   useEffect(() => {
     api
-      .get<Category[]>(`/category`)
+      .get<Category[]>(`/category`, {
+        params: {
+          status: true,
+        },
+      })
       .then(response => {
         const options = response.data.map((opt: Category) => {
-          return { value: opt.id, label: opt.descricao };
+          return { value: opt.id, label: opt.description };
         });
         if (!options) return;
-        console.log(options);
         setCategoryOptions(options);
       })
       .catch((error: Error) => {
@@ -138,15 +140,14 @@ const ModalProduct: React.FC<IModalProps> = ({
 
             <label htmlFor="image[]" className="new-image">
               <FiPlus size={24} color="#15b6d6" />
+              <input
+                name="images"
+                multiple
+                onChange={handleSelectImages}
+                type="file"
+                id="image[]"
+              />
             </label>
-
-            <input
-              name="images"
-              multiple
-              onChange={handleSelectImages}
-              type="file"
-              id="image[]"
-            />
           </ImageContainer>
         </div>
 

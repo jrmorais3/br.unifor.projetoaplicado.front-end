@@ -21,6 +21,7 @@
     "react-day-picker": "^7.4.10",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
+    "react-loader-spinner": "^4.0.0",
     "react-modal": "^3.12.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
@@ -37,7 +38,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:coverage": "react-scripts test --coverage --watchAll false",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "json-server server.json -w -d 750 -p 3333",
+    "server-auth": "json-server auth.json -m ./node_modules/json-server-auth -w -d 750 -p 4444"
   },
   "jest": {
     "collectCoverageFrom": [

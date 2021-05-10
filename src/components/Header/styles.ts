@@ -1,7 +1,5 @@
 import styled, { css } from 'styled-components';
 
-import searchIcon from '../../assets/search.svg';
-
 interface DropdownMenuProps {
   isVisible?: boolean;
 }
@@ -10,21 +8,8 @@ export const Container = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-right: 60px;
   height: 100px;
-
-  h1.pageTitle {
-    margin-left: 30px;
-  }
-
-  div input {
-    width: 220px;
-    border: 0;
-    height: 34px;
-    padding-left: 50px;
-    font-size: 12px;
-    background: url(${searchIcon}) no-repeat 5px center;
-  }
+  padding: 30px;
 `;
 
 export const Content = styled.div`

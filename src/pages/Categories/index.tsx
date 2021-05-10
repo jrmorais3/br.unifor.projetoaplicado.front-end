@@ -4,6 +4,7 @@ import { Container, Content } from '../../components/Container';
 import Sidebar from '../../components/Sidebar';
 import Header from '../../components/Header';
 import ToggleButton from '../../components/ToggleButton';
+import Loading from '../../components/Loading';
 
 import { api } from '../../services/api';
 
@@ -17,12 +18,13 @@ import ModalCategory from '../../components/ModalCategory';
 
 interface Category {
   id: number;
-  descricao: string;
+  description: string;
   status: boolean;
 }
 
 const Categories: React.FC = () => {
   const [showModalCategory, setModalCategory] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
@@ -31,6 +33,7 @@ const Categories: React.FC = () => {
       .then(response => {
         const categoriesArray = response.data;
         setCategories(categoriesArray);
+        setIsLoading(false);
       })
       .catch((error: Error) => {
         console.log(error.message);
@@ -55,12 +58,12 @@ const Categories: React.FC = () => {
   const updateStatus = useCallback(
     async (id: number) => {
       try {
-        const categoryFinded = categories.find(category => category.id === id);
-        if (!categoryFinded) return;
+        const categoryFound = categories.find(category => category.id === id);
+        if (!categoryFound) return;
 
         const response = await api.put(`category/${id}`, {
-          ...categoryFinded,
-          status: !categoryFinded.status,
+          ...categoryFound,
+          status: !categoryFound.status,
         });
 
         const editedCategory = response.data;
@@ -114,7 +117,7 @@ const Categories: React.FC = () => {
                 {categories.map(category => (
                   <tr key={category.id}>
                     <td>{category.id}</td>
-                    <td>{category.descricao}</td>
+                    <td>{category.description}</td>
                     <td>
                       <ToggleButton
                         categoryId={category.id}
@@ -126,6 +129,7 @@ const Categories: React.FC = () => {
                 ))}
               </tbody>
             </CategoriesTable>
+            {isLoading && <Loading />}
           </CategoryContent>
         </Main>
       </Content>

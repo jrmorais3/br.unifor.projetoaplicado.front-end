@@ -10,7 +10,7 @@ import getValidationErros from '../../utils/getValidationErros';
 
 interface Category {
   id: number;
-  descricao: string;
+  description: string;
   status: boolean;
 }
 
@@ -33,7 +33,7 @@ const ModalCategory: React.FC<IModalProps> = ({
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          descricao: Yup.string().required('Nome da Categoria é Obrigatório'),
+          description: Yup.string().required('Nome da Categoria é Obrigatório'),
         });
 
         await schema.validate(data, { abortEarly: false });
@@ -55,7 +55,7 @@ const ModalCategory: React.FC<IModalProps> = ({
       <Form ref={formRef} onSubmit={handleSubmit}>
         <h1>Nova Categoria</h1>
         <div className="row">
-          <Input name="descricao" placeholder="Nome da Categoria" />
+          <Input name="description" placeholder="Nome da Categoria" />
         </div>
 
         <button type="submit" data-testid="add-category-button">

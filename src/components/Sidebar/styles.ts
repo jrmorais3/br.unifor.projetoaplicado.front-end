@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Aside = styled.aside`
+  position: fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,11 +41,14 @@ export const Aside = styled.aside`
         margin-top: 10px;
       }
 
+      transition-duration: 0.3s;
+
       &:hover {
         background: #ff365f;
         a {
           color: #fff;
         }
+        transform: scale(1.05);
       }
     }
 
@@ -91,6 +95,7 @@ export const Aside = styled.aside`
       color: #fff;
       cursor: default;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+      pointer-events: none;
     }
   }
 
@@ -117,9 +122,12 @@ export const Aside = styled.aside`
     border-radius: 25px 0 0 25px;
     text-decoration: none;
 
+    transition-duration: 0.3s;
+
     &:hover {
       background: #ff365f;
       color: #fff;
+      transform: scale(1.05);
     }
 
     svg {

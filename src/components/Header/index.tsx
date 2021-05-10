@@ -8,6 +8,9 @@ import {
 } from 'react-icons/fa';
 
 import { OutSideClick } from '../../hooks/outSideClick';
+import userDefaultImage from '../../assets/user.svg';
+
+// import { useAuth } from '../../hooks/auth';
 
 import {
   Container,
@@ -31,17 +34,14 @@ const Header: React.FC = ({ children }) => {
 
         <DropdownMenu ref={ref}>
           <button type="button" onClick={handleClickButton}>
-            <img
-              src="https://avatars.githubusercontent.com/u/29052049?s=400&u=ce9d2588cb52719d5c1a65217ff18c7e5c8ef804&v=4"
-              alt="Douglas Bernardo"
-            />
-            <span>Admin</span>
+            <img src={userDefaultImage} alt="User Logo" />
+            <span>Selfmenu</span>
             <FaAngleDown />
 
             <DropdownMenuContent isVisible={visible}>
               <a href="/">
                 <FaUser className="drop" />
-                <span>Meu Pefil</span>
+                <span>Meu Perfil</span>
               </a>
               <a href="/">
                 <FaInfoCircle className="drop" />

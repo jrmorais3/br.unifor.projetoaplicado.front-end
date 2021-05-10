@@ -5,7 +5,6 @@ import searchIcon from '../../assets/search.svg';
 
 export const Main = styled.div`
   height: 100%;
-  margin-right: 30px;
   overflow: auto;
   padding: 30px;
 

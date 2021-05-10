@@ -5,8 +5,6 @@ import searchIcon from '../../assets/search.svg';
 
 export const Main = styled.div`
   height: 100%;
-  max-width: 1120px;
-  overflow: auto;
   padding: 30px;
 
   color: #3c3c3c;
@@ -16,6 +14,7 @@ export const ProductContent = styled.div`
   padding: 30px;
   background: #fff;
   border-radius: 10px;
+  min-height: 500px;
 `;
 
 export const ProductContentHeader = styled.header`

@@ -4,7 +4,6 @@ import { Container } from './styles';
 
 interface ToggleButtonProps {
   selected?: boolean;
-  onChange: (id: number) => void;
   [key: string]: any;
 }
 

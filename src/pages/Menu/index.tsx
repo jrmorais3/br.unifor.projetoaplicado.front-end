@@ -1,28 +1,21 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { AiFillStar } from 'react-icons/ai';
 
-import { BiDotsVertical } from 'react-icons/bi';
-import { Container, Content, Main } from '../../components/Container';
+import { Container, Content } from '../../components/Container';
 import Sidebar from '../../components/Sidebar';
 import Header from '../../components/Header';
 
-import { ProductContent, ProductContentHeader, ProductTable } from './styles';
+import {
+  Main,
+  ProductContent,
+  ProductContentHeader,
+  ProductTable,
+} from './styles';
 import Tag from '../../components/Tag';
 import { api } from '../../services/api';
 import ModalProduct from '../../components/ModalProduct';
 import DropAction from '../../components/DropAction';
-
-const statusStyle = {
-  '1': 'success',
-  '2': 'info',
-  '3': 'warning',
-};
-
-const statusDescription = {
-  '1': 'Disponível',
-  '2': 'Estoque Baixo',
-  '3': 'Indisponível',
-};
+import Loading from '../../components/Loading';
 
 interface Product {
   id: number;
@@ -32,12 +25,13 @@ interface Product {
   price: string;
   url_photo: string;
   rate: number;
-  status: number;
+  available: boolean;
   images: File[];
 }
 
 const Menu: React.FC = () => {
   const [showModalProduct, setModalProduct] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -45,6 +39,7 @@ const Menu: React.FC = () => {
       .get<Product[]>(`/product`)
       .then(response => {
         setProducts(response.data);
+        setIsLoading(false);
       })
       .catch((error: Error) => {
         console.log(error.message);
@@ -57,21 +52,38 @@ const Menu: React.FC = () => {
 
   const handleProduct = useCallback(
     async (product: Omit<Product, 'id'>, images: File[]) => {
-      const data = new FormData();
-      data.append('name', product.name);
-      data.append('description', product.description);
-      data.append('category_id', String(product.category_id));
-      data.append('price', String(product.price));
-      data.append('rate', '5');
-      data.append('status', '1');
+      const formData = new FormData();
+      formData.append('name', product.name);
+      formData.append('description', product.description);
+      formData.append('category_id', String(product.category_id));
+      formData.append('price', String(product.price));
+      formData.append('rate', '5');
+      formData.append(
+        'url_photo',
+        `http://localhost:3000/images/${images[0].name}`,
+      );
       images.forEach(image => {
-        data.append('img', image);
+        formData.append('img', image);
       });
+
+      const object = Object.fromEntries(formData);
+      const data = {
+        ...object,
+        available: true,
+      };
 
       const productCreated = await api.post('/product', data);
       setProducts(state => [...state, productCreated.data]);
     },
     [],
+  );
+
+  const handleDeleteItem = useCallback(
+    async (product_id: number) => {
+      await api.delete(`/product/${product_id}`);
+      setProducts(products.filter(product => product.id !== product_id));
+    },
+    [products],
   );
 
   return (
@@ -136,17 +148,22 @@ const Menu: React.FC = () => {
                     </td>
                     <td>{product.price}</td>
                     <td>
-                      <Tag theme={statusStyle[product.status] || 'default'}>
-                        {statusDescription[product.status]}
+                      <Tag theme={product.available ? 'success' : 'default'}>
+                        {product.available ? 'Disponível' : 'Indisponível'}
                       </Tag>
                     </td>
                     <td>
-                      <DropAction />
+                      <DropAction
+                        product_id={product.id}
+                        product_name={product.name}
+                        handleDeleteItem={handleDeleteItem}
+                      />
                     </td>
                   </tr>
                 ))}
               </tbody>
             </ProductTable>
+            {isLoading && <Loading />}
           </ProductContent>
         </Main>
       </Content>
