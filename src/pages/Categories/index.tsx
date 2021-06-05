@@ -61,7 +61,7 @@ const Categories: React.FC = () => {
         const categoryFound = categories.find(category => category.id === id);
         if (!categoryFound) return;
 
-        const response = await api.put(`category/${id}`, {
+        const response = await api.put(`category/ativarOuDesativar/${id}`, {
           ...categoryFound,
           status: !categoryFound.status,
         });

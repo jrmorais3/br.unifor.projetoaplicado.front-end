@@ -36,7 +36,7 @@ interface Product {
   id: number;
   name: string;
   description: string;
-  category_id: number;
+  CATEGORIEId: number;
   price: string;
   url_photo: string;
   rate: number;
@@ -70,7 +70,7 @@ const Product: React.FC = () => {
   useEffect(() => {
     Promise.all([
       api.get<Category[]>(`/category`),
-      api.get<Product>(`product/${params.id}`),
+      api.get<Product>(`product/form/${params.id}`),
     ])
       .then(response => {
         const [categories, productData] = response;
@@ -87,9 +87,9 @@ const Product: React.FC = () => {
         setPreviewImages([dataProd.url_photo]);
 
         const selected = categories.data.find(opt => {
-          return opt.id === Number(dataProd.category_id);
+          return opt.id === Number(dataProd.CATEGORIEId);
         });
-        formRef.current?.setFieldValue('category_id', {
+        formRef.current?.setFieldValue('CATEGORIEId', {
           value: selected?.id,
           label: selected?.description,
         });
@@ -110,7 +110,7 @@ const Product: React.FC = () => {
 
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome do produto é obrigatório'),
-          category_id: Yup.string().required('Categoria é obrigatória'),
+          CATEGORIEId: Yup.string().required('Categoria é obrigatória'),
           price: Yup.string().required('Preço é obrigatório'),
         });
 
@@ -119,8 +119,9 @@ const Product: React.FC = () => {
         const formData = new FormData();
         formData.append('name', data.name);
         formData.append('description', data.description);
-        formData.append('category_id', String(data.category_id));
+        formData.append('CATEGORIEId', String(data.CATEGORIEId));
         formData.append('price', String(data.price));
+        formData.append('available', productAvailability.toString());
         if (images.length > 0) {
           formData.append(
             'url_photo',
@@ -139,7 +140,7 @@ const Product: React.FC = () => {
           available: productAvailability,
         };
 
-        await api.put(`/product/${params.id}`, edited);
+        await api.put(`/product/${params.id}`, formData);
         history.push('/menu');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -227,7 +228,7 @@ const Product: React.FC = () => {
                 <div className="row">
                   <div className="label">Categoria:</div>
                   <Select
-                    name="category_id"
+                    name="CATEGORIEId"
                     options={categoryOptions}
                     styles={selectCustomStyles}
                     menuPlacement="auto"

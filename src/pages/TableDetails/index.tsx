@@ -54,10 +54,10 @@ const TableDetails: React.FC = () => {
 
   useEffect(() => {
     api
-      .get<Table>(`/tables/${params.id}`)
+      .get<Table>(`/table/${params.id}`)
       .then(response => {
         const tableData = response.data;
-
+        console.log(tableData);
         const tableOrderFormatted = {
           ...tableData,
           order_table: {

@@ -52,7 +52,7 @@ const WaitersCreate: React.FC = () => {
             'url_photo',
             `http://localhost:3000/images/${image.name}`,
           );
-          formData.append('image', image);
+          formData.append('img', image);
         }
 
         const object = Object.fromEntries(formData);
@@ -61,7 +61,7 @@ const WaitersCreate: React.FC = () => {
           active: true,
         };
 
-        await api.post(`/waiters`, prepared);
+        await api.post(`/waiters`, formData);
         history.push('/settings/waiters');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {

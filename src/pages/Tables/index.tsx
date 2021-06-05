@@ -57,7 +57,7 @@ const Tables: React.FC = () => {
 
   useEffect(() => {
     api
-      .get<Table[]>(`/tables`)
+      .get<Table[]>(`/table`)
       .then(response => {
         setTables(response.data);
         setIsLoading(false);

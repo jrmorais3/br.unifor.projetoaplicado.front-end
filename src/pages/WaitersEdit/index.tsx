@@ -48,7 +48,7 @@ const WaitersEdit: React.FC = () => {
 
   useEffect(() => {
     api
-      .get<Waiter>(`/waiters/${params.id}`)
+      .get<Waiter>(`/waiters/form/${params.id}`)
       .then(response => {
         const waiterData = response.data;
         setWaiter(waiterData);
@@ -81,13 +81,9 @@ const WaitersEdit: React.FC = () => {
         formData.append('name', data.name);
         formData.append('login', data.login);
         formData.append('phone_number', data.phone_number);
-
+        formData.append('active', waiterIsActive.toString());
         if (image) {
-          formData.append(
-            'url_photo',
-            `http://localhost:3000/images/${image.name}`,
-          );
-          formData.append('image', image);
+          formData.append('img', image);
         } else {
           formData.append('url_photo', previewImage);
         }
@@ -98,7 +94,7 @@ const WaitersEdit: React.FC = () => {
           active: waiterIsActive,
         };
 
-        await api.put(`/waiters/${params.id}`, prepared);
+        await api.put(`/waiters/${params.id}`, formData);
         history.push('/settings/waiters');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {

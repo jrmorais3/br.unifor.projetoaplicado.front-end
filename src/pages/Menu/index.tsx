@@ -58,10 +58,7 @@ const Menu: React.FC = () => {
       formData.append('category_id', String(product.category_id));
       formData.append('price', String(product.price));
       formData.append('rate', '5');
-      formData.append(
-        'url_photo',
-        `http://localhost:3000/images/${images[0].name}`,
-      );
+
       images.forEach(image => {
         formData.append('img', image);
       });
@@ -71,8 +68,8 @@ const Menu: React.FC = () => {
         ...object,
         available: true,
       };
-
-      const productCreated = await api.post('/product', data);
+      console.log(data);
+      const productCreated = await api.post('/product', formData);
       setProducts(state => [...state, productCreated.data]);
     },
     [],
